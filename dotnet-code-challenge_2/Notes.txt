@@ -1,0 +1,59 @@
+Overview/Notes Before Tasks: 
+
+Controller - Handles HTTP request 
+Service - Contains business logic + focus on rules
+Repository - Handles data access read/write from DB
+Model - defines structure of the API 
+
+- Initially employee does not return the list od reports only has null 
+  modified for easier access of list of reports 
+- Long variables names included for ease of understanding 
+
+
+
+Task 1: Comments 
+- Modified the app file to include the injection 
+- Nested Testing Below 
+
+Mini Test: 
+Test employees with no subordinates
+- curl -v http://localhost:8080/api/report/62c1084e-6e34-4630-93fd-9153afb65309
+
+Test employee with multiple subordinates
+- curl -v http://localhost:8080/api/report/16a596ae-edd3-4847-99fe-c4518e82c86f
+
+Test non existent employees
+- curl -v http://localhost:8080/api/report/16a596ae-
+
+
+Task 2: Comments
+
+Creates  a new Repository because the main goal of this progarm is to keep 
+track of employees + Readability and finding where data stored important 
+
+MiniTests: 
+
+Multiple Comensations for same employee
+
+1st Command 
+curl -X POST http://localhost:8080/api/compensation \
+  -H "Content-Type: application/json" \
+  -d '{
+        "employeeId": "16a596ae-edd3-4847-99fe-c4518e82c86f",
+        "salary": 90000,
+        "effectiveDate": "2025-10-01T00:00:00"
+      }'
+
+
+2nd Command
+curl -X POST http://localhost:8080/api/compensation \
+  -H "Content-Type: application/json" \
+  -d '{
+        "employeeId": "16a596ae-edd3-4847-99fe-c4518e82c86f",
+        "salary": 95000,
+        "effectiveDate": "2025-12-01T00:00:00"
+      }'
+
+Retrieve: 
+curl http://localhost:8080/api/compensation/16a596ae-edd3-4847-99fe-c4518e82c86f
+
